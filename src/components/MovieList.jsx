@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import MovieCard from "./MovieCard";
 
 const MovieList = ({ movies }) => {
+  useEffect(() => {
+    console.log(movies);
+  });
   return (
     <div
       style={{

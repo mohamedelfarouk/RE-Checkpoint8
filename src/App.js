@@ -5,9 +5,11 @@ import AddMovie from "./components/AddMovie";
 import moviesList from "./db/moviesList";
 
 function App() {
-  useEffect(() => {
-    setMovies(moviesList);
-  }, []);
+  const [searchTextR, setSearchTextR] = useState("0");
+  const [searchTextT, setSearchTextT] = useState("");
+  const [movies, setMovies] = useState(moviesList);
+
+  // useEffect(() => {}, [searchTextR, searchTextT]);
 
   const handleSearchTitle = (text) => {
     setMovies(
@@ -17,8 +19,17 @@ function App() {
     );
   };
 
+  const handleFilter = (movies) => {
+    return movies
+      .filter((movie) => {
+        console.log(movie);
+        return movie.title.toLowerCase().includes(searchTextT.toLowerCase());
+      })
+      .filter((movie) => movie.rating >= parseInt(searchTextR));
+  };
+
   const handleSearchRating = (text) => {
-    setMovies(movies.filter((movie) => movie.rating >= parseInt(text)));
+    // setMovies(movies.filter((movie) => movie.rating >= parseInt(text)));
   };
 
   const addNew = (movie) => {
@@ -36,14 +47,17 @@ function App() {
     ]);
   };
 
-  const [movies, setMovies] = useState(moviesList);
   return (
     <div>
       <Filter
         handleFilterT={handleSearchTitle}
         handleFilterR={handleSearchRating}
+        searchTextR={searchTextR}
+        searchTextT={searchTextT}
+        setSearchTextR={setSearchTextR}
+        setSearchTextT={setSearchTextT}
       />
-      <MovieList movies={movies} />
+      <MovieList movies={handleFilter(movies)} />
       <AddMovie onAdd={addNew} />
     </div>
   );

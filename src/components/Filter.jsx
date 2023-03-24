@@ -1,45 +1,59 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Filter = ({ handleFilterT, handleFilterR }) => {
-  const [searchText, setSearchText] = useState("");
-
+const Filter = ({
+  handleFilterT,
+  handleFilterR,
+  setSearchTextR,
+  setSearchTextT,
+  searchTextR,
+  searchTextT,
+}) => {
   const handleSearchRating = () => {
-    handleFilterR(searchText);
+    handleFilterR(searchTextR);
   };
 
   const handleSearchTitle = () => {
-    handleFilterT(searchText);
+    handleFilterT(searchTextT);
   };
 
   return (
     <>
       <InputGroup className="mb-3" style={{ maxWidth: "50%" }}>
         <Form.Control
-          placeholder="Search"
+          placeholder="Search by title"
           aria-label="Search"
           aria-describedby="basic-addon2"
-          value={searchText}
+          value={searchTextT}
           onChange={(e) => {
-            setSearchText(e.target.value);
+            setSearchTextT(e.target.value);
           }}
         />
-        <Button
+        {/* <Button
           variant="outline-secondary"
           id="button-addon2"
           onClick={handleSearchTitle}
         >
           Search by Title
-        </Button>
-        <Button
+        </Button> */}
+        <Form.Control
+          placeholder="Search by rating"
+          aria-label="Search"
+          aria-describedby="basic-addon2"
+          value={searchTextR}
+          onChange={(e) => {
+            setSearchTextR(e.target.value);
+          }}
+        />
+        {/* <Button
           variant="outline-secondary"
           id="button-addon3"
           onClick={handleSearchRating}
         >
           Search by Rating
-        </Button>
+        </Button> */}
       </InputGroup>
     </>
   );
